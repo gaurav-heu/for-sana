@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Sana: Meri Favorite Bhootni</title>	    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>Sana: Proper Diva</title>	    
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="default.css">
     <script type="text/javascript" src="jquery.min.js"></script>
@@ -16,26 +17,89 @@
     <script type="text/javascript" src="love.js" charset="utf-8"></script>
 
     <style>
-        body { background-color: #000 !important; color: #fff !important; margin: 0; padding: 0; overflow: hidden; }
-        #wrap { position: relative; margin: 0 auto; width: 1100px; height: 700px; background: #000 !important; }
-        #text { width: 600px; height: auto; left: 45px; top: 40px; position: absolute; z-index: 100; }
+        body { 
+            background-color: #000 !important; 
+            color: #fff !important; 
+            margin: 0; 
+            padding: 0; 
+            overflow-x: hidden; 
+            width: 100%; 
+        }
+        
+        #main { 
+            width: 100%; 
+            min-height: 100vh; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Responsive Container */
+        #wrap { 
+            position: relative; 
+            width: 100%; 
+            max-width: 1100px; 
+            display: flex;
+            flex-direction: row; /* Desktop: Side by side */
+            justify-content: space-around;
+            align-items: flex-start;
+            padding-top: 50px;
+        }
+
+        #text { 
+            width: 45%; 
+            z-index: 100;
+            padding: 20px;
+        }
+
         #code { 
             font-family: 'Dancing Script', cursive !important; 
             color: #ffffff !important; 
-            font-size: 20px !important; 
-            line-height: 30px; 
+            font-size: 19px !important; 
+            line-height: 28px; 
             display: none;
         }
-        #start-btn { 
-            position: absolute; z-index: 999; left: 50%; top: 50%; transform: translate(-50%, -50%); 
-            padding: 12px 35px; background: #fff; color: #000; border: none; border-radius: 4px; 
-            font-size: 17px; font-weight: bold; cursor: pointer; letter-spacing: 1px;
+
+        #canvas { 
+            display: block; 
+            z-index: 1;
         }
-        #start-btn:hover { background: #ff1f44; color: #fff; }
+
+        #start-btn { 
+            position: fixed; z-index: 999; left: 50%; top: 50%; transform: translate(-50%, -50%); 
+            padding: 15px 40px; background: #fff; color: #000; border: none; border-radius: 5px; 
+            font-size: 18px; font-weight: bold; cursor: pointer; letter-spacing: 1px;
+            box-shadow: 0 0 20px rgba(255,255,255,0.4);
+        }
+
+        /* Mobile specific logic: Tree on Top, Text Below */
+        @media screen and (max-width: 800px) {
+            #wrap { 
+                flex-direction: column; /* Stack vertically */
+                align-items: center;
+                padding-top: 10px;
+            }
+            #canvas {
+                order: 1; /* Tree on top */
+                width: 100% !important;
+                height: auto !important;
+            }
+            #text { 
+                order: 2; /* Text below tree */
+                width: 90%; 
+                margin-top: 20px;
+                position: static; /* Remove absolute positioning */
+            }
+            #code {
+                font-size: 17px !important;
+                line-height: 24px;
+            }
+            body { overflow-y: auto; } /* Allow scrolling on mobile */
+        }
     </style>
 </head>
 <body>
-    <button id="start-btn">Sana, jara yahan click kar</button>
+    <button id="start-btn">Sana click here</button>
 
     <div id="main">
         <audio id="myAudio" loop>
@@ -43,27 +107,26 @@
         </audio>
 
         <div id="wrap">
+            <canvas id="canvas"></canvas>
             <div id="text">
                 <div id="code">
                     <span class="say">oye sana zara sun</span><br><br>
-                    <span class="say">tu na proper diva hai aur upar se ek khatarnak roaster bhi</span><br>
-                    <span class="say">seedha bolna teri fitrat hai aur logon ki keh ke lena tera talent</span><br>
-                    <span class="say">dikhawa tere bas ka nahi tu dil ki saaf hai par zubaan teri kaanch hai</span><br><br>
-                    <span class="say">raat ko 11 baje sona aur subah 6 baje uthna... legend hai tu</span><br>
-                    <span class="say">par ye bata itni jaldi uth kar tu karti kya hai</span><br>
-                    <span class="say">din bhar funny reels bhej bhej kar mood light karna hi teri job hai</span><br><br>
-                    <span class="say">netflix ki hardcore binge watcher... ek din me poori series khatam karna</span><br>
-                    <span class="say">ye olympic level ka talent kahan se laati hai tu bhootni</span><br>
+                    <span class="say">tu na proper diva hai par saath me full time bhootni bhi</span><br>
+                    <span class="say">farq bas itna hai ki bhoot log daraate hain</span><br>
+                    <span class="say">tu seedha muh pe sach bol kar logon ko silent mode me daal deti hai</span><br><br>
+                    <span class="say">raat ko 11 baje sone aur subah 6 baje uthne ka tera routine legendary hai</span><br>
+                    <span class="say">bas problem ye hai ki itni jaldi uth kar tu karti kya hai</span><br>
+                    <span class="say">reels forward karne ke alawa koi productive kaam dhoond le</span><br><br>
+                    <span class="say">netflix ki hardcore binge watcher... ek din me poori series khatam</span><br>
+                    <span class="say">ye olympic level ka talent kahan se laati hai tu sana</span><br>
                     <span class="say">exercise se aise bhaagti hai jaise maut follow kar rahi ho</span><br><br>
-                    <span class="say">room ki walls crafts se saja kar tune proof kar diya ki tu creative hai</span><br>
+                    <span class="say">room ki walls crafts se saja kar tune proof kar diya ki talent hai</span><br>
                     <span class="say">bas dimaag ka sahi use karna abhi bhi baki hai tera</span><br><br>
-                    <span class="say">sarcasm side me par tu sach mein warm aur positive energy hai</span><br>
-                    <span class="say">tu bina koshish ke bhi logon ko important feel kara deti hai</span><br><br>
-                    <span class="say">hamesha aisi hi independent aur bold rehna tu ❤️</span><br><br>
-                    <span class="say">happy birthday sana chal ab treat nikaal</span>
+                    <span class="say">sarcasm side me par tu real warm aur positive energy hai</span><br>
+                    <span class="say">bina koshish ke logon ko important feel kara deti hai ❤️</span><br><br>
+                    <span class="say">ab nakhre kam kar aur treat nikaal... happy birthday bhootni</span>
                 </div>
             </div>
-            <canvas id="canvas" width="1100" height="680"></canvas>
         </div>
     </div>
 
@@ -74,20 +137,24 @@
 
     $(document).ready(function() {
         var canvas = $('#canvas');
-        var width = canvas.width();
-        var height = canvas.height();
+        // Dynamic scaling
+        var width = $(window).width() > 800 ? 650 : $(window).width();
+        var height = $(window).width() > 800 ? 680 : 500;
         
+        canvas.attr("width", width);
+        canvas.attr("height", height);
+
         var tree = new Tree(canvas[0], width, height, {
-            seed: { x: width / 2 - 20, color: "rgb(190, 26, 37)", scale: 2 },
-            branch: [[535, 680, 570, 250, 500, 200, 30, 100, [
-                    [540, 500, 455, 417, 340, 400, 13, 100, [[450, 435, 434, 430, 394, 395, 2, 40]]],
-                    [550, 445, 600, 356, 680, 345, 12, 100, [[578, 400, 648, 409, 661, 426, 3, 80]]],
-                    [539, 281, 537, 248, 534, 217, 3, 40],
-                    [546, 397, 413, 247, 328, 244, 9, 80, [[427, 286, 383, 253, 371, 205, 2, 40],[498, 345, 435, 315, 395, 330, 4, 60]]],
-                    [546, 357, 608, 252, 678, 221, 6, 100, [[590, 293, 646, 277, 648, 271, 2, 80]]]
-                ]]],
-            bloom: { num: 700, width: 1080, height: 650 },
-            footer: { width: 1200, height: 5, speed: 0 } 
+            seed: { x: width / 2, y: height - 20, color: "rgb(190, 26, 37)", scale: 2 },
+            branch: [[width/2, height, width/2, height*0.6, width/2-35, height*0.5, 30, 100, [
+                [width/2+5, height*0.7, width/2-80, height*0.6, width/2-160, height*0.58, 13, 100, [[width/2-90, height*0.64, width/2-106, height*0.63, width/2-146, height*0.58, 2, 40]]],
+                [width/2+15, height*0.65, width/2+65, height*0.52, width/2+145, height*0.5, 12, 100, [[width/2+43, height*0.58, width/2+113, height*0.6, width/2+126, height*0.62, 3, 80]]],
+                [width/2+4, height*0.4, width/2+2, height*0.36, width/2-1, height*0.3, 3, 40],
+                [width/2+11, height*0.58, width/2-122, height*0.36, width/2-207, height*0.35, 9, 80, [[width/2-108, height*0.42, width/2-152, height*0.37, width/2-164, height*0.3, 2, 40],[width/2-37, height*0.5, width/2-100, height*0.46, width/2-140, height*0.48, 4, 60]]],
+                [width/2+11, height*0.52, width/2+73, height*0.37, width/2+143, height*0.32, 6, 100, [[width/2+55, height*0.43, width/2+111, height*0.4, width/2+113, height*0.39, 2, 80]]]
+            ]]],
+            bloom: { num: 500, width: width, height: height - 100 },
+            footer: { width: width, height: 5, speed: 0 } 
         });
 
         var seed = tree.seed;
@@ -101,7 +168,6 @@
             hold = 0;
         });
 
-        // Fast Animation Settings
         var seedAnimate = eval(Jscex.compile("async", function () {
             seed.draw();
             while (hold) { $await(Jscex.Async.sleep(1)); }
@@ -118,10 +184,9 @@
         }));
 
         var moveAnimate = eval(Jscex.compile("async", function () {
-            tree.snapshot("p1", 240, 0, 610, 680);
-            while (tree.move("p1", 500, 0)) { $await(Jscex.Async.sleep(1)); }
-            tree.snapshot("p2", 500, 0, 610, 680);
-            canvas.parent().css("background", "url(" + tree.toDataURL('image/png') + ")");
+            tree.snapshot("p1", 0, 0, width, height);
+            while (tree.move("p1", 0, 0)) { $await(Jscex.Async.sleep(1)); }
+            tree.snapshot("p2", 0, 0, width, height);
             $await(Jscex.Async.sleep(100));
         }));
 
