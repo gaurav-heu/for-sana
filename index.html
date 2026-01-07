@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sana: Meri Favorite Bhootni</title>	    
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="default.css">
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script type="text/javascript" src="jscex.min.js"></script>
+    <script type="text/javascript" src="jscex-parser.js"></script>
+    <script type="text/javascript" src="jscex-jit.js"></script>
+    <script type="text/javascript" src="jscex-builderbase.min.js"></script>
+    <script type="text/javascript" src="jscex-async.min.js"></script>
+    <script type="text/javascript" src="jscex-async-powerpack.min.js"></script>
+    <script type="text/javascript" src="function.js" charset="utf-8"></script>
+    <script type="text/javascript" src="love.js" charset="utf-8"></script>
+
+    <style>
+        body { background-color: #000 !important; color: #fff !important; margin: 0; padding: 0; overflow: hidden; }
+        #wrap { position: relative; margin: 0 auto; width: 1100px; height: 700px; background: #000 !important; }
+        #text { width: 600px; height: auto; left: 45px; top: 40px; position: absolute; z-index: 100; }
+        #code { 
+            font-family: 'Dancing Script', cursive !important; 
+            color: #ffffff !important; 
+            font-size: 20px !important; 
+            line-height: 30px; 
+            display: none;
+        }
+        #start-btn { 
+            position: absolute; z-index: 999; left: 50%; top: 50%; transform: translate(-50%, -50%); 
+            padding: 12px 35px; background: #fff; color: #000; border: none; border-radius: 4px; 
+            font-size: 17px; font-weight: bold; cursor: pointer; letter-spacing: 1px;
+        }
+        #start-btn:hover { background: #ff1f44; color: #fff; }
+    </style>
+</head>
+<body>
+    <button id="start-btn">Sana, jara yahan click kar</button>
+
+    <div id="main">
+        <audio id="myAudio" loop>
+            <source src="aud.mp3" type="audio/mp3" />
+        </audio>
+
+        <div id="wrap">
+            <div id="text">
+                <div id="code">
+                    <span class="say">oye sana zara sun</span><br><br>
+                    <span class="say">tu na proper diva hai aur upar se ek khatarnak roaster bhi</span><br>
+                    <span class="say">seedha bolna teri fitrat hai aur logon ki keh ke lena tera talent</span><br>
+                    <span class="say">dikhawa tere bas ka nahi tu dil ki saaf hai par zubaan teri kaanch hai</span><br><br>
+                    <span class="say">raat ko 11 baje sona aur subah 6 baje uthna... legend hai tu</span><br>
+                    <span class="say">par ye bata itni jaldi uth kar tu karti kya hai</span><br>
+                    <span class="say">din bhar funny reels bhej bhej kar mood light karna hi teri job hai</span><br><br>
+                    <span class="say">netflix ki hardcore binge watcher... ek din me poori series khatam karna</span><br>
+                    <span class="say">ye olympic level ka talent kahan se laati hai tu bhootni</span><br>
+                    <span class="say">exercise se aise bhaagti hai jaise maut follow kar rahi ho</span><br><br>
+                    <span class="say">room ki walls crafts se saja kar tune proof kar diya ki tu creative hai</span><br>
+                    <span class="say">bas dimaag ka sahi use karna abhi bhi baki hai tera</span><br><br>
+                    <span class="say">sarcasm side me par tu sach mein warm aur positive energy hai</span><br>
+                    <span class="say">tu bina koshish ke bhi logon ko important feel kara deti hai</span><br><br>
+                    <span class="say">hamesha aisi hi independent aur bold rehna tu ❤️</span><br><br>
+                    <span class="say">happy birthday sana chal ab treat nikaal</span>
+                </div>
+            </div>
+            <canvas id="canvas" width="1100" height="680"></canvas>
+        </div>
+    </div>
+
+    <script>
+    function toggleFullScreen() {
+        if (!document.fullscreenElement) { document.documentElement.requestFullscreen(); }
+    }
+
+    $(document).ready(function() {
+        var canvas = $('#canvas');
+        var width = canvas.width();
+        var height = canvas.height();
+        
+        var tree = new Tree(canvas[0], width, height, {
+            seed: { x: width / 2 - 20, color: "rgb(190, 26, 37)", scale: 2 },
+            branch: [[535, 680, 570, 250, 500, 200, 30, 100, [
+                    [540, 500, 455, 417, 340, 400, 13, 100, [[450, 435, 434, 430, 394, 395, 2, 40]]],
+                    [550, 445, 600, 356, 680, 345, 12, 100, [[578, 400, 648, 409, 661, 426, 3, 80]]],
+                    [539, 281, 537, 248, 534, 217, 3, 40],
+                    [546, 397, 413, 247, 328, 244, 9, 80, [[427, 286, 383, 253, 371, 205, 2, 40],[498, 345, 435, 315, 395, 330, 4, 60]]],
+                    [546, 357, 608, 252, 678, 221, 6, 100, [[590, 293, 646, 277, 648, 271, 2, 80]]]
+                ]]],
+            bloom: { num: 700, width: 1080, height: 650 },
+            footer: { width: 1200, height: 5, speed: 0 } 
+        });
+
+        var seed = tree.seed;
+        var hold = 1;
+
+        $('#start-btn').click(function() {
+            $(this).fadeOut();
+            toggleFullScreen();
+            document.getElementById("myAudio").play();
+            runAsync().start();
+            hold = 0;
+        });
+
+        // Fast Animation Settings
+        var seedAnimate = eval(Jscex.compile("async", function () {
+            seed.draw();
+            while (hold) { $await(Jscex.Async.sleep(1)); }
+            while (seed.canScale()) { seed.scale(0.95); $await(Jscex.Async.sleep(1)); }
+            while (seed.canMove()) { seed.move(0, 2); $await(Jscex.Async.sleep(1)); }
+        }));
+
+        var growAnimate = eval(Jscex.compile("async", function () {
+            do { tree.grow(); $await(Jscex.Async.sleep(1)); } while (tree.canGrow());
+        }));
+
+        var flowAnimate = eval(Jscex.compile("async", function () {
+            do { tree.flower(2); $await(Jscex.Async.sleep(1)); } while (tree.canFlower());
+        }));
+
+        var moveAnimate = eval(Jscex.compile("async", function () {
+            tree.snapshot("p1", 240, 0, 610, 680);
+            while (tree.move("p1", 500, 0)) { $await(Jscex.Async.sleep(1)); }
+            tree.snapshot("p2", 500, 0, 610, 680);
+            canvas.parent().css("background", "url(" + tree.toDataURL('image/png') + ")");
+            $await(Jscex.Async.sleep(100));
+        }));
+
+        var textAnimate = eval(Jscex.compile("async", function () {
+            $("#code").show().typewriter();
+        }));
+
+        var runAsync = eval(Jscex.compile("async", function () {
+            $await(seedAnimate());
+            $await(growAnimate());
+            $await(flowAnimate());
+            $await(moveAnimate());
+            textAnimate().start();
+        }));
+    });
+    </script>
+</body>
+</html>
